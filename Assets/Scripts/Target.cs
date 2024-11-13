@@ -14,7 +14,8 @@ public class Target : MonoBehaviour
 
     private GameManager gameManager;
 
-    [SerializeField] private int pointValue;
+    public int pointValue;
+    public ParticleSystem explosionPS; 
 
     // private float zPos = 0.3f; 
     // Start is called before the first frame update
@@ -61,7 +62,7 @@ public class Target : MonoBehaviour
     
         if (!gameObject.CompareTag("Bad"))
         {
-            gameManager.DecreaseScore();
+            gameManager.DecreaseScore(pointValue);
         }
 
         if (gameManager.GetScore() < 0)
@@ -78,14 +79,15 @@ public class Target : MonoBehaviour
     private void DestroySelf()
     {
         Destroy(gameObject);
+        Instantiate(explosionPS, transform.position, transform.rotation);
 
         if (!gameObject.CompareTag("Bad"))
         {
-            gameManager.IncreaseScore();
+            gameManager.IncreaseScore(pointValue);
         }
         else
         { 
-            gameManager.DecreaseScore();
+            gameManager.DecreaseScore(pointValue);
         }
     }
 }

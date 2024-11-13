@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         while (gameIsActive)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(spawnRate);
             int indexCount = Random.Range(0, targets.Count);
             Instantiate(targets[indexCount]);
         }
@@ -61,23 +61,23 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseScore()
+    public void IncreaseScore(int pointValue)
     {
-        score += 10;
-        UpdateScore();
+        score += pointValue;
+        UpdateScore(score);
     }
 
-    public void DecreaseScore()
+    public void DecreaseScore(int pointValue)
     { 
-        score -= 5;
-        UpdateScore();
+        score -= pointValue;
+        UpdateScore(score);
     }
 
     public int GetScore()
     {
         return score; 
     }
-    private void UpdateScore()
+    private void UpdateScore(int score)
     {
         scoreText.text = $"Score: {score}";
     }
